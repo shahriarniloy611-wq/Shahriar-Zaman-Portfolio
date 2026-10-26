@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Shahriar Zaman — Fashion Portfolio"
+description = "A personal fashion design portfolio presenting Shahriar Zaman’s apparel concepts, technical development work, professional experience, and contact information."
+version = "1.0.0"
+id = "artifacts/shahriar-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25075
+
+[services.development]
+run = "pnpm --filter @workspace/shahriar-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/shahriar-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/shahriar-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25075"
+BASE_PATH = "/"
